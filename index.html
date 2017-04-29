@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Search|Mellifluent</title>
+
+  <!-- Responsive viewport tag, tells small screens that it's responsive -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Normalize.css, a cross-browser reset file -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.css" rel="stylesheet">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Oleo+Script" rel="stylesheet">
+  <!-- Stylesheets -->
+  <link rel="stylesheet" type="text/css" href="main.css">
+  <link rel="stylesheet" type="text/css" href="float-grid.css">
+</head>
+<body>
+<!-- Navigation Bar -->
+	<div class="navback">
+		<div class="row">
+			<div class="col-12">
+				<nav><h1>mellifluent</h1></nav>
+			</div>
+		</div>
+	</div>
+<!-- HomePage Search Box and Use Instructions -->
+	<div class="homebox hidden">
+		<div class="row">
+			<div class="col-12">
+				<h2>1. Search your song 2. See it's lyrics 3. Translate them into the language of your choice</h2>
+				<form action="#" class="js-search-form center">
+					<label for="query"></label>
+					<input type="text" class="js-query homesearch" placeholder="Song title or Artist name">
+					<button type="submit">Search</button>
+				</form>			
+			</div>				
+		</div>
+	</div>
+<!--Search Results Landing Page-->
+	<div class="row fullheight">
+		<div class="col-12">
+			<div class="search-results-container">
+				<p>Search results</p>
+				<ul class="search-results">
+
+				</ul>
+			</div>
+		</div>
+	</div>
+<!-- Original Lyrics and Translated Lyrics Landing Page -->
+	<div class="row fullheight hidden">
+		<div class="col-6 orange">
+			<p>words words words words words words words words words words words</p>
+		</div>
+		<div class="col-6 green">
+			<p>words words words words words words words words words words words</p>
+		</div>
+	</div>
+		<!-- <div class="col-4">
+			<div class="whitebox">
+				<img class="img-response" src="images/kylo_square.png">
+				<div class="indent">
+					<p>Kylo</p>
+					<div class="subtext">Main villain, or is he?</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-4">
+			<div class="whitebox">
+				<img class="img-response" src="images/poe_square.png">
+				<div class="indent">
+					<p>Poe</p>
+					<div class="subtext">Neutral pilot</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-4">
+			<div class="whitebox">
+				<img class="img-response" src="images/chewbacca_square.png">
+				<div class="indent">
+					<p>Chewbacca</p>
+					<div class="subtext">A great first mate</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-4">
+			<div class="whitebox">
+				<img class="img-response" src="images/yoda_square.png">
+				<div class="indent">
+					<p>Yoda</p>
+					<div class="subtext">Wise old Jedi master</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row emptyrow">
+		
+	</div> -->
+	<script src="https://code.jquery.com/jquery-3.0.0.js"></script>
+	<script type="text/javascript" src="app.js"></script>
+</body>
+</html>
