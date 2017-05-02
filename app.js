@@ -1,27 +1,38 @@
-var YT_Search_URL = 'https://www.googleapis.com/youtube/v3/search';
-var YT_Video_Watch = 'https://www.youtube.com/watch?v='
-
-function getYouTubeData (searchTerm, callback) {
-	var request = {
-		part:'snippet',
-		key: 'AIzaSyC31FtR6W-c_9aUH3msfIfSmjsRwn3Ga_Q',
-		q: searchTerm
-		//a resource's snippet.thumbnails property is an object that identifies the thumbnail images available for that resource.
-		//snippet.thumbnails.default should reveal the default thumbnail for the video
-		//snippet.default.url should reveal the image's url. 
-		//where do I put this info?
-	}
-	$.getJSON(YT_Search_URL, request, callback);
+var Genius_Search_URL = "https://api.genius.com/search";
+ function getGeniusData (searchTerm, callback) {
+	var settings = {
+		q: searchTerm,
+		url: Genius_Search_URL,
+		method: "GET",
+		dataType: "json",
+		headers: {
+	    	authorization: "Bearer 8-Ko3WalCfgafFx5d7XL69kx7PkHhvuBUOeF07wQEXFPNvgIWDkp83aitNN-0BNl",
+	    	
+  }
+}
+	$.ajax(settings);
 }
 
-function displayYtData (data) {
+/* function getGeniusData (searchTerm, callback) {
+	var settings = {
+		async: true,
+		CrossDomain: true,
+		q: searchTerm,
+		url: Genius_Search_URL,
+		method: "GET",
+		dataType: "json",
+  }
+	$.ajax(settings);
+} */
+
+function displayGeniusData (data) {
 	var resultElement = '';
-	if (data.items) {
-		data.items.forEach(function(item) {
+	if (response.hits) {
+		response.hits.forEach(function(item) {
 			resultElement += 
-			'<a href="' + YT_Video_Watch + item.id.videoId + '"' + 'target="_blank" >' + '<img src="' + item.snippet.thumbnails.default.url + '">' + 
-			'<p>' + item.snippet.title + '</p>' + '</a>';
-		}); //should I put the code in a variable and do an element.find? Also, am i calling the snippet correctly?
+			'<li><a href="' + response.hits.result.url + '"' + 'target="_blank" >' + '<img src="' + response.hits.result.song_art_image_thumbnail_url + '">' + 
+			'<p>' + response.hits.result.fulltitle + '</p>' + '</a></li>';
+		}); 
 	}
 	else {
 		resultElement += '<p>No results</p>';
@@ -32,7 +43,7 @@ function watchSubmit() {
   $('.js-search-form').submit(function(e) {
     e.preventDefault();
     var userSearchTerm = $(this).find('.js-query').val();
-    getYouTubeData (userSearchTerm, displayYtData);
+    getGeniusData (userSearchTerm, displayGeniusData);
   });
 }
 
