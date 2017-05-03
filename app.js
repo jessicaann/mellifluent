@@ -1,17 +1,31 @@
-var YT_Search_URL = 'https://www.googleapis.com/youtube/v3/search';
-var YT_Video_Watch = 'https://www.youtube.com/watch?v='
+//var YT_Search_URL = 'https://www.googleapis.com/youtube/v3/search';
+//var YT_Video_Watch = 'https://www.youtube.com/watch?v='
+var GS_Search_URL = 'https://genius-proxy.glitch.me/search';
 
 function getYouTubeData (searchTerm, callback) {
 	var request = {
-		part:'snippet',
-		key: 'AIzaSyC31FtR6W-c_9aUH3msfIfSmjsRwn3Ga_Q',
-		q: searchTerm
-		//a resource's snippet.thumbnails property is an object that identifies the thumbnail images available for that resource.
-		//snippet.thumbnails.default should reveal the default thumbnail for the video
-		//snippet.default.url should reveal the image's url. 
-		//where do I put this info?
-	}
-	$.getJSON(YT_Search_URL, request, callback);
+		q: "Glass Animals"
+	};
+	$.ajax({
+		url: GS_Search_URL,
+		method: 'GET',
+		data: request,
+		//jsonp: "callback",
+		dataType: "json",
+		success: function(response){
+			console.log(response);
+		}
+	});
+	//var request = {
+	//	part:'snippet',
+	//	key: 'AIzaSyC31FtR6W-c_9aUH3msfIfSmjsRwn3Ga_Q',
+	//	q: searchTerm
+	//	//a resource's snippet.thumbnails property is an object that identifies the thumbnail images available for that resource.
+	//	//snippet.thumbnails.default should reveal the default thumbnail for the video
+	//	//snippet.default.url should reveal the image's url. 
+	//	//where do I put this info?
+	//}
+	//$.getJSON(YT_Search_URL, request, callback);
 }
 
 function displayYtData (data) {
