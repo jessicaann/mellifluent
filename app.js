@@ -1,10 +1,9 @@
-//var YT_Search_URL = 'https://www.googleapis.com/youtube/v3/search';
-//var YT_Video_Watch = 'https://www.youtube.com/watch?v='
+/*Genius Get Search Results*/
 var GS_Search_URL = 'https://genius-proxy.glitch.me/search';
 
-function getYouTubeData (searchTerm, callback) {
+function getGeniusSearchData (searchTerm, callback) {
 	var request = {
-		q: "Glass Animals"
+		q: searchTerm
 	};
 	$.ajax({
 		url: GS_Search_URL,
@@ -14,17 +13,19 @@ function getYouTubeData (searchTerm, callback) {
 		dataType: "json",
 		success: function(response){
 			console.log(response);
+			callback(response);
 		}
 	});
 }
 
-function displayGeniusData (data) {
+function displayGeniusSearchData (data) {
 	var resultElement = '';
-	if (response.hits) {
-		response.hits.forEach(function(item) {
+	if (data.response.hits) {
+		data.response.hits.forEach(function(item) {
 			resultElement += 
-			'<li><a href="' + response.hits.result.url + '"' + 'target="_blank" >' + '<img src="' + response.hits.result.song_art_image_thumbnail_url + '">' + 
-			'<p>' + response.hits.result.fulltitle + '</p>' + '</a></li>';
+			'<li><img class="thumbnail" src="' + item.result.song_art_image_thumbnail_url + '">' + 
+			'<p>' + item.result.full_title + '</p></li>' + '<div class="thisSongId hidden">' + item.result.id
+			+ '</div>';
 		}); 
 	}
 	else {
@@ -35,12 +36,57 @@ function displayGeniusData (data) {
 function watchSubmit() {
   $('.js-search-form').submit(function(e) {
     e.preventDefault();
+    $(".search-results-container").removeClass('hidden');
     var userSearchTerm = $(this).find('.js-query').val();
-    getGeniusData (userSearchTerm, displayGeniusData);
+    getGeniusSearchData (userSearchTerm, displayGeniusSearchData);
   });
 }
 
 $(function(){watchSubmit();});
+
+/*Genius Get Song Lyrics*/
+var GS_Song_URL = 'https://genius-proxy.glitch.me/song';
+
+function getGeniusSongData (songId, callback) {
+	var request = {
+		id: songId
+	};
+	$.ajax({
+		url: GS_Song_URL,
+		method: 'GET',
+		data: request,
+		//jsonp: "callback",
+		dataType: "json",
+		success: function(response){
+			console.log(response);
+			callback(response);
+		}
+	});
+}
+
+function displayGeniusSongData (data) {
+	var resultElement = '';
+	if (data.response) {
+		'<p>' + data.response.song.description.html + '</p>';
+		} 
+	else {
+		resultElement += '<p>No results</p>';
+	}
+	$('.js-orig-lyrics').html(resultElement);
+}
+function watchSelection() {
+  $('.js-search-results').on('click', 'li', (function(e) {
+    e.preventDefault();
+    $(".search-results-container").addClass('hidden');
+    $(".js-orig-lyrics").removeClass('hidden');
+    var songId = $(this).find('.thisSongId').val();
+    getGeniusSongData (songId, displayGeniusSongData);
+  }));
+}
+
+$(function(){watchSelection();});
+
+
 
 /*Yandex Get List of Languages*/
 function getListLangs (callback) {
@@ -56,10 +102,11 @@ $.ajax(getLangSettings);
 
 function displayListLangs (data) {
 	var resultElement = '';
-	if (jsonp.langs) {
-		jsonp.langs.forEach(function(item) {
+	if (data.langs) {
+		var keys = Object.keys(data.langs);
+		keys.forEach(function(key) {
 			resultElement += 
-			'<option value="' + langs.Object.keys[0] + '">' + langs.Object.value[0] + '</option>';
+			'<option value="' + key + '">' + data.langs[key] + '</option>';
 		}); 
 	}
 	$('.js-choose-lang').html(resultElement);
@@ -81,7 +128,7 @@ to be put in the 'text' parameter of the translate code.
 Questions:
 How do I navigate through a jsonp function? When displaying the keys/values, how do I call them? 
 See above 'jsonp.langs.Object.keys'
-Do I want translations returned as text or html? What is the difference?
+Do I want translations returned as text or html? Return simple text. What is the difference?
 My callback function is just called jsonp. That doesn't make sense. Is it supposed to be a function?
 */
 

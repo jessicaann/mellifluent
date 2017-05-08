@@ -55,6 +55,10 @@ ul {
 	background-color: green;
 	height: 100%;
 }
+.thumbnail {
+	width: 200px;
+	height: 200px;
+}
 .fullheight {
 	height: 100%
 }
